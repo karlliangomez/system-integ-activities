@@ -14,7 +14,8 @@
         <v-btn block color="green">
           Sign In
         </v-btn>
-        <br>
+        
+        <h5>OR</h5>
         <v-btn block variant="outlined" prepend-icon="mdi-google" @click="loginWithGoogle">
           Sign in with Google
         </v-btn>
