@@ -1,11 +1,18 @@
 
+
 <template>
   <ClientOnly>
     <div class="page-wrapper">
       <h2>Scan from WebCam:</h2>
 
       <div class="video-frame">
-        <video ref="videoRef"></video>
+        <video 
+          ref="videoRef" 
+          playsinline 
+          webkit-playsinline 
+          autoplay 
+          muted
+        ></video>
       </div>
 
       <p><strong>Detected QR code:</strong> {{ scanResult }}</p>
@@ -68,7 +75,6 @@ const qrScanner = ref(null)
 const scanResult = ref('None')
 
 onMounted(async () => {
-  // Dynamically import qr-scanner to prevent Nuxt SSR crashes
   const QrScanner = (await import('qr-scanner')).default
 
   if (videoRef.value) {
@@ -78,28 +84,32 @@ onMounted(async () => {
         scanResult.value = result.data
       },
       {
-        onDecodeError: () => { /* Silent catch to stop console flooding */ },
-        maxScansPerSecond: 10
+        onDecodeError: () => { /* Silent catch */ },
+        maxScansPerSecond: 10,
+        // CRITICAL VERCEL FIX: Forces the engine to bundle the worker code inline 
+        // instead of searching for an external file path that doesn't exist on Vercel
+        worker: 'inline' 
       }
     )
   }
 })
 
-// Control Handlers
 const startScanner = async () => {
   if (qrScanner.value) {
-    await qrScanner.value.start().catch(err => console.error('Camera access denied or missing:', err))
+    await qrScanner.value.start().catch(err => {
+      console.error('Camera initialization error:', err)
+      alert('Camera access failed. Ensure you granted permissions and are using HTTPS.')
+    })
   }
 }
 
 const stopScanner = () => {
   if (qrScanner.value) {
     qrScanner.value.stop()
-    scanResult.value = 'None' // Resets the result when stopped
+    scanResult.value = 'None'
   }
 }
 
-// Memory clean-up when leaving the page
 onBeforeUnmount(() => {
   if (qrScanner.value) {
     qrScanner.value.destroy()
