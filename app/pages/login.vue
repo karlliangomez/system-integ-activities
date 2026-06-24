@@ -14,7 +14,7 @@
         <v-btn block color="green">
           Sign In
         </v-btn>
-        
+
         <h5>OR</h5>
         <v-btn block variant="outlined" prepend-icon="mdi-google" @click="loginWithGoogle">
           Sign in with Google
@@ -25,7 +25,13 @@
 </template>
 
 <script lang="ts" setup>
+
+
 //@ts-nocheck
+
+definePageMeta({
+  middleware: 'auth'
+})
 
 const config = useRuntimeConfig()
 
@@ -45,7 +51,7 @@ const loginWithGoogle = () => {
           Authorization: `Bearer ${response.access_token}`
         }
       })
-      localStorage.setItem('google.user', JSON.stringify(userInfo))
+      localStorage.setItem('google_user', JSON.stringify(userInfo))
       localStorage.setItem('google_token', response.access_token)
 
       navigateTo('/')
