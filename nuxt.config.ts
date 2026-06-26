@@ -16,6 +16,11 @@ export default defineNuxtConfig({
       },
     },
   },
+
+  css: [
+    'leaflet/dist/leaflet.css'
+  ],
+  
   runtimeConfig: {
     public: {
       //@ts-ignore
