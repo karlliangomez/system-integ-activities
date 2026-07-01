@@ -3,7 +3,7 @@
     <div class="blur-circle circle-1"></div>
     <div class="blur-circle circle-2"></div>
 
-    <v-card class="dashboard-card pa-8 pa-sm-10 text-center" width="100%" max-width="540" rounded="xl">
+    <v-card class="dashboard-card pa-8 pa-sm-10 text-center" width="100%" max-width="580" rounded="xl">
       
       <div class="avatar-container mb-6">
         <v-avatar size="120" class="profile-avatar">
@@ -31,34 +31,50 @@
 
       <v-card-text class="pa-0">
         <v-row dense>
-          <v-col cols="12" sm="6" class="pb-2">
+          <v-col cols="12" sm="4" class="pb-2">
             <v-btn 
               @click="openMap" 
-              height="70"
+              height="75"
               block
               variant="flat"
               class="action-btn map-btn text-white font-weight-bold"
               rounded="xl"
             >
               <div class="d-flex flex-column align-center justify-center py-2">
-                <v-icon size="28" class="mb-1">mdi-map-marker-radius</v-icon>
-                <span class="text-subtitle-2 tracking-wide">Open Map</span>
+                <v-icon size="26" class="mb-1">mdi-map-marker-radius</v-icon>
+                <span class="text-caption tracking-wide font-weight-bold">Open Map</span>
               </div>
             </v-btn>
           </v-col>
 
-          <v-col cols="12" sm="6" class="pb-2">
+          <v-col cols="12" sm="4" class="pb-2">
             <v-btn 
               @click="openQrScanner" 
-              height="70"
+              height="75"
               block
               variant="flat"
               class="action-btn qr-btn text-white font-weight-bold"
               rounded="xl"
             >
               <div class="d-flex flex-column align-center justify-center py-2">
-                <v-icon size="28" class="mb-1">mdi-qrcode-scan</v-icon>
-                <span class="text-subtitle-2 tracking-wide">QR Scanner</span>
+                <v-icon size="26" class="mb-1">mdi-qrcode-scan</v-icon>
+                <span class="text-caption tracking-wide font-weight-bold">QR Scanner</span>
+              </div>
+            </v-btn>
+          </v-col>
+
+          <v-col cols="12" sm="4" class="pb-2">
+            <v-btn 
+              @click="openWeather" 
+              height="75"
+              block
+              variant="flat"
+              class="action-btn weather-btn text-white font-weight-bold"
+              rounded="xl"
+            >
+              <div class="d-flex flex-column align-center justify-center py-2">
+                <v-icon size="26" class="mb-1">mdi-weather-partly-cloudy</v-icon>
+                <span class="text-caption tracking-wide font-weight-bold">Weather</span>
               </div>
             </v-btn>
           </v-col>
@@ -101,6 +117,11 @@ const openQrScanner = () => {
   navigateTo('/qrscanner')
 }
 
+// Route target navigation method matching other components
+const openWeather = () => {
+  navigateTo('/weather')
+}
+
 const logout = () => {
   localStorage.removeItem('google_user')
   localStorage.removeItem('google_token')
@@ -123,7 +144,7 @@ onMounted(() => {
 
 <style scoped>
 .dashboard-wrapper {
-  position: fixed; /* Replaced relative with fixed to force fill the entire screen */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -204,6 +225,15 @@ onMounted(() => {
 .qr-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4) !important;
+}
+
+/* Weather button high-fidelity color palette matching standard atmospheric designs */
+.weather-btn {
+  background: linear-gradient(135deg, #3b82f6 0%, #0284c7 100%) !important;
+}
+.weather-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4) !important;
 }
 
 /* Logout Button Micro-interactions */
