@@ -13,10 +13,6 @@ export default defineNuxtConfig({
     vue: {
       template: {
         transformAssetUrls,
-        // Directs Vue to ignore the 3D element tag errors
-        compilerOptions: {
-          isCustomElement: (tag) => tag === 'model-viewer'
-        }
       },
     },
   },
